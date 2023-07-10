@@ -24,11 +24,13 @@ async function formSubmit(){
     if (response.ok) {
         let result = await response.json();
         resultText = result.message;
-        statusBlock.textContent = resultText;
+        /* statusBlock.textContent = resultText; */
+        statusBlock.textContent = "Сообщение отправлено";
         formReset();
     } else {
         resultText = response.status;
-        statusBlock.textContent = resultText;
+        /* statusBlock.textContent = resultText; */
+        statusBlock.textContent = "Ошибка";
         formElements.forEach(input => {
             if (!input.classList.contains('valid')) {
                     input.style.borderColor = 'red';
@@ -42,7 +44,7 @@ function serializeForm(formNode) {
 }
 
 async function sendData(data) {
-    return await fetch('sendmail.php', { 
+    return await fetch('https://jsonplaceholder.typicode.com/posts', {  //sendmail.php
             method: 'POST',
             body: data,
     });

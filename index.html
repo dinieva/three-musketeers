@@ -193,15 +193,15 @@
 
 <section class="contacts" id="contacts">
     <div class="form-wrapper">
-        <h2 class="heading anim right">Отправить нам сообщение</h2>
-        <form id="form" action="sendmail.php" method="POST">
+        <h2 class="heading anim right">Отправить нам сообщение</h2> 
+       <form id="form"><!--action="sendmail.php" method="POST"-->
            <div class="inputBox">
-                <input type="text" placeholder="Имя" id="name" name="name" data-reg="^[а-яА-ЯёЁa-zA-Z]+$" class="userInfo">
-                <input type="tel" placeholder="Номер телефона" id="phone" name="phone" maxlength="18" class="userInfo">
-                <input type="email" placeholder="Эл.адрес" name="email" id="email" data-reg="^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$" class="userInfo">
-                <textarea required name="text" id="" cols="30" rows="10" placeholder="Текст сообщения" data-reg="^(?:(?![\s\n]+$)[\s\S])+$" class="userInfo"></textarea>
-                <button type="submit" class="btn-contact" >Отправить</button>
-           </div>
+                <input type="text" placeholder="Имя" id="name" name="name" data-reg="^[а-яА-ЯёЁa-zA-Z]+$" class="userInfo" required>
+                <input type="tel" placeholder="Номер телефона" id="phone" name="phone" maxlength="18" class="userInfo" required>
+                <input type="email" placeholder="Эл.адрес" name="email" id="email" data-reg="^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$" class="userInfo" required>
+                <textarea name="text" id="" cols="30" rows="10" placeholder="Текст сообщения" data-reg="^(?:(?![\s\n]+$)[\s\S])+$" class="userInfo" required></textarea>
+                <button type="submit" class="btn-contact" > <span>Отправить</span></button>
+            </div>
     
            
         </form>
@@ -211,10 +211,7 @@
         Звоните по телефону<br>
         <a href="tel:+79047694737" class="tel">89047694737</a>
     </h4>
-
-
 </section>
-
 
     </body>
 </html>
