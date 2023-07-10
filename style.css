@@ -49,10 +49,18 @@ section {
   font-weight: 600;
   text-align: center;
   text-transform: uppercase;
+  /* @media screen and (max-width: 450px) {
+      font-size: 4rem; 
+  }  */
 }
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 1100px) {
   .heading {
     font-size: 4rem;
+  }
+}
+@media screen and (max-width: 767px) {
+  .heading {
+    font-size: 3rem;
   }
 }
 
@@ -316,7 +324,7 @@ header {
   color: #fff;
 }
 
-.photo-block-wrapper:hover::after {
+.photo-block-wrapper::after {
   content: attr(data-title); /* Выводим текст */
   position: absolute;
   bottom: 4rem;
@@ -674,7 +682,6 @@ button:focus {
 /* contacts style */
 .contacts {
   background: linear-gradient(45deg, #facc86, #c57a08);
-  height: 100vh;
 }
 .contacts form {
   padding: 2rem 20%;
@@ -741,11 +748,6 @@ button:focus {
 .contacts a:hover {
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1px #c57a08;
-}
-@media screen and (max-width: 767px) {
-  .contacts .heading {
-    font-size: 3rem;
-  }
 }
 
 .form-wrapper {
