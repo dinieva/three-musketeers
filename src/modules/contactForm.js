@@ -12,7 +12,7 @@ form.addEventListener('input', (e) => {
 })
 
 function inputCheck(el) {
-    const inputValue = el.value;
+    const inputValue = el.value.trim();
     const inputReg = el.getAttribute('data-reg');
     const reg = new RegExp(inputReg);
     if(reg.test(inputValue)){

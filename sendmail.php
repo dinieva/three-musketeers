@@ -1,43 +1,57 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+/* файл не работает */
+require 'phpmailer/Exception.php';
+require 'phpmailer/PHPMailer.php';
+require 'phpmailer/SMTP.php';
 
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
+$title = "Тема письма";
 
-
-/* require 'vendor/autoload.php'; */
-
-$mail = new PHPMailer(true);
-$mail -> CharSet = 'UTF-8';
-
-$mail->setLanguage('ru', 'phpmailer/language/'); //сообщения об ошибках будут на русском языке
-$mail->isHTML(true); //Set email format to HTML
-$mail->addAddress('dinievarezeda@mail.ru');     //кому отправлять
-$mail->Subject = 'Сообщение от сайта мушкетеров';
-
-$name = $_POST['name'];
-$phone = $_POST['phone'];
-$email = $_POST['email'];
-$message = $_POST['message'];
-
-$body.='<p>Имя:'.$name.'</p>';/* Принимаем имя пользователя с формы .. */
-$body.='<p>Номер:'.$phone.'</p>';/* Телефон */
-$body.='<p>Эл.адрес:'.$email.'</p>'; /* Почту */
-$body.='<p>Текст сообщения:'.$message.'</p>'; /* Сообщение с формы */
-
-$mail->Body = $body;
-
-if(!$mail->send()) {
-    $message = 'Ошибка, cообщение не может быть отправлено';
-} else {
-    $message = 'Сообщение отправлено успешно';
+$c = true;
+// Формирование самого письма
+$title = "сообщение с сайта Мушкетеров";
+foreach ( $_POST as $key => $value ) {
+  if ( $value != "" && $key != "project_name" && $key != "admin_email" && $key != "form_subject" ) {
+    $body .= "
+    " . ( ($c = !$c) ? '<tr>':'<tr style="background-color: #f8f8f8;">' ) . "
+      <td style='padding: 10px; border: #e9e9e9 1px solid;'><b>$key</b></td>
+      <td style='padding: 10px; border: #e9e9e9 1px solid;'>$value</td>
+    </tr>
+    ";
+  }
 }
 
-$response= ['message' => $message];
+$body = "<table style='width: 100%;'>$body</table>";
 
-header( "Content-Type": "application/json");
-echo json_encode($response);
+// Настройки PHPMailer
+$mail = new PHPMailer\PHPMailer\PHPMailer();
 
+try {
+  $mail->isSMTP();
+  $mail->CharSet = "UTF-8";
+  $mail->SMTPAuth   = true;
+
+  // Настройки вашей почты
+  $mail->Host       = 'smtp.mail.ru'; // SMTP сервера вашей почты
+  $mail->Username   = 'dinievamail@mail.ru'; // Логин на почте
+  $mail->Password   = 'f4Vg3G3xs5YB0ph9xDJh'; // Пароль на почте
+  $mail->SMTPSecure = 'ssl';
+  $mail->Port       = 465;
+
+  $mail->setFrom('dinievamail@mail.ru', 'Заявка с вашего сайта'); // Адрес самой почты и имя отправителя
+
+  // Получатель письма
+  $mail->addAddress('dinievamail@mail.ru');
+
+  // Отправка сообщения
+  $mail->isHTML(true);
+  $mail->Subject = $title;
+  $mail->Body = $body;
+
+  $mail->send();
+  $message = 'Сообщение отправлено успешно';
+  $response= ['message' => $message];
+  echo json_encode($response);
+} catch (Exception $e) {
+  $status = "Сообщение не было отправлено. Причина ошибки: {$mail->ErrorInfo}";
+}
 ?>
-
